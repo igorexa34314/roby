@@ -179,21 +179,26 @@ body {
 	@include adaptiv-value("height", 138, 70, 2);
 	background-color: #000000;
 	border-radius: 69px;
+	transform: none;
 	border: 1px solid #000000;
+	transition: transform 1s ease 0s;
 	transition: all 0.3s ease 0s;
 	span {
 		text-align: center;
 		@include adaptiv-value("font-size", 14, 11, 2);
 		line-height: 1.43;
 		letter-spacing: 0.06em;
+		transform: none;
 		text-transform: uppercase;
 		color: #FFFFFF;
 	}
 	&:hover {
+		transform: rotate3d(0, 1, 0, 180deg);
 		background-color: #FFFFFF;
 		span {
 			font-weight: $bold;
 			color: #000000;
+			transform: rotate3d(0, 1, 0, -180deg);
 		}
 	}
 	&_light {
@@ -783,41 +788,175 @@ body {
 }
 // ==========================================================
 
-.lets-talk {
-	background-color: #020A0C;
+.think {
+	background-color: $bgccolor;
 	&__container {
-		@include adaptiv-value("padding-top", 100, 45, 2);
-		@include adaptiv-value("padding-bottom", 100, 45, 2);
-		display: flex;
-		align-items: center;
+		max-width: 1440px;
+		@include adaptiv-value("padding-bottom", 85, 45, 2);
+		@media(max-width:1440px) {
+			max-width: $bp1280;
+		}
+		@media(max-width:$bp1280) {
+			max-width: $bp1024;
+		}
+		@media(max-width:$bp1024) {
+			max-width: $bp980;
+		}
+		@media(max-width:$bp980) {
+			max-width: $bp760;
+			flex-direction: column;
+		}
+		@media(max-width:$bp760) {
+			max-width: $bp640;
+		}
+		@media(max-width:$bp640) {
+			max-width: none;
+		}
 	}
-	&__content {
-		flex: 1 1 auto;
-	}
+
 	&__title {
-		margin-bottom: 14px;
-		@include adaptiv-value("font-size", 94, 56, 2);
+		@include adaptiv-value("margin-bottom", 88, 25, 2);
 		font-weight: $bold;
-		color: #FFFFFF;
+		@include adaptiv-value("font-size", 60, 32, 2);
+		line-height: 1.2;
+		text-align: center;
 		text-transform: uppercase;
 		span {
 			font-weight: $regular;
 			font-size: 0.7em;
-			line-height: 1.42;
-			letter-spacing: 0.015em;
+			line-height: 1.71;
+			letter-spacing: 0.025em;
 		}
 	}
+
+	&__slider {}
+
+	&__items {}
+
+	&__item {
+		padding: 35px 45px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		background: #FFFFFF;
+		border: 1px solid #000000;
+		border-radius: 5px;
+		@media(max-width: $bp760) {
+			margin: 0 auto;
+			padding: 15px 20px;
+			max-width: 80%;
+		}
+		@media(max-width: $bp450) {
+			padding: 20px;
+			max-width: 95%;
+		}
+	}
+
 	&__block-text {
+		text-align: center;
 		> div {
-			@include adaptiv-value("font-size", 21, 16, 2);
-			line-height: 1.2;
+			@include adaptiv-value("font-size", 20, 14, 2);
+			line-height: 1.32;
+			color: #000000;
 		}
 	}
-	&__notice {
-		padding-top: 8px;
+
+	&__profile {
+		margin-top: 28px;
 	}
 }
-// ====================================================================
+.slider {
+	&__container {
+		padding: 0;
+		margin: 0px -15px;
+		max-width: inherit;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+	&__wrapper {
+		position: relative;
+		flex: 0 0 33.333333%;
+		max-width: 33.333333%;
+		@media(max-width: $bp1280) {
+			flex: 0 0 50%;
+			max-width: 50%;
+		}
+		@media(max-width: $bp760) {
+			flex: 0 0 100%;
+			max-width: 100%;
+		}
+	}
+
+	&__items {
+		display: flex;
+		align-items: center;
+		transition: transform 0.5s ease;
+	}
+
+	&__item {
+		user-select: none;
+		padding: 0px 15px;
+		flex: 0 0 100%;
+		max-width: 100%;
+		opacity: 0.58;
+		transition: opacity 0.4s ease 0s;
+		&_active {
+			opacity: 1;
+		}
+	}
+
+	&__indicators {
+		cursor: pointer;
+		margin-top: 20px;
+		padding: 10px 20px 19px 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		li {
+			width: 10px;
+			height: 10px;
+			background-color: rgba(34, 34, 34, 0.4);
+			transition: all 0.4s ease 0s;
+			&.active {
+				background-color: #222222;
+			}
+		}
+	}
+	&_disable-transition {
+		transition: none;
+	}
+}
+.profile {
+
+	&__photo {
+		display: flex;
+		justify-content: center;
+		img {
+			max-width: 100%;
+		}
+	}
+
+	&__content {
+		margin-top: 19px;
+		text-align: center;
+		@include adaptiv-value("font-size", 17, 12, 2);
+	}
+
+	&__name {
+		margin-bottom: 5px;
+		line-height: 1.18;
+		text-transform: uppercase;
+	}
+
+	&__job {
+		line-height: 1.3;
+		color: #747474;
+	}
+}
+// ================================================================================
 
 .skills {
 	background-color: $bgccolor;
@@ -836,6 +975,7 @@ body {
 		}
 		@media(max-width:$bp980) {
 			max-width: $bp760;
+			flex-direction: column;
 		}
 		@media(max-width:$bp760) {
 			max-width: $bp640;
@@ -847,21 +987,34 @@ body {
 	&__content {
 		background-color: #020A0C;
 		flex: 0 0 50%;
-		@include adaptiv-value("padding-left", 120, 20, 2);
-		@include adaptiv-value("padding-right", 120, 20, 2);
-		@include adaptiv-value("padding-top", 90, 10, 2);
-		@include adaptiv-value("padding-bottom", 90, 10, 2);
+		padding: 90px 120px;
+		@media(max-width:1440px) {
+			padding: 60px 80px;
+		}
+		@media(max-width:$bp1280) {
+			padding: 30px 40px;
+		}
+		@media(max-width:$bp980) {
+			padding-bottom: 50px;
+		}
+		@media(max-width:$bp450) {
+			padding: 30px 20px;
+		}
 	}
 	&__title {
-		@include adaptiv-value("margin-bottom", 72, 40, 2);
+		@include adaptiv-value("margin-bottom", 72, 25, 2);
 		color: #FFFFFF;
 		font-weight: $bold;
 		@include adaptiv-value("font-size", 60, 28, 2);
+		@media(max-width:$bp1280) {
+			@include adaptiv-value("margin-bottom", 50, 25, 2);
+			@include adaptiv-value("font-size", 54, 26, 2);
+		}
 		line-height: 1.2;
 		text-transform: uppercase;
 		span {
 			font-weight: $regular;
-			@include adaptiv-value("font-size", 42, 24, 2);
+			font-size: 0.7em;
 			line-height: 1.71;
 			letter-spacing: 0.025em;
 		}
@@ -877,6 +1030,11 @@ body {
 
 	&__image {
 		flex: 0 0 50%;
+		@media(max-width:$bp980) {
+			background-color: #020A0C;
+			display: flex;
+			justify-content: center;
+		}
 		img {
 			max-width: 100%;
 		}
@@ -885,9 +1043,12 @@ body {
 		margin-bottom: 15px;
 	}
 }
+// ====================================================================
 .stats {
 	color: #FFFFFF;
-	&__items {}
+	&__items {
+		overflow: hidden;
+	}
 	&__item {
 		@include adaptiv-value("padding-bottom", 12, 6, 2);
 		position: relative;
@@ -905,9 +1066,14 @@ body {
 		position: absolute;
 		bottom: 0;
 		left: 0;
-		width: 100%;
+		width: 0%;
 		height: 2px;
+		transform: translate(-110%, 0%);
 		background-color: #FFFFFF;
+		transition: all 0.5s ease 0.2s;
+		&._active {
+			transform: none;
+		}
 	}
 	&__title {}
 	&__value {}
@@ -961,6 +1127,9 @@ body {
 	}
 	&__block-text {
 		position: relative;
+		transform: translate(0, -100%);
+		opacity: 0;
+		transition: all 0.5s ease 0s;
 		h3 {
 			margin-bottom: 2px;
 			font-weight: $bold;
@@ -969,6 +1138,10 @@ body {
 			text-transform: uppercase;
 		}
 		> div {}
+		&._active {
+			transform: none;
+			opacity: 1;
+		}
 	}
 }
 // ===================================================================
@@ -981,6 +1154,9 @@ body {
 		@include adaptiv-value("margin-bottom", 50, 25, 2);
 		display: flex;
 		align-items: center;
+		@media(max-width:$bp450) {
+			padding: 0px 15px;
+		}
 	}
 	&__title {
 		flex: 1 1 auto;
@@ -1010,11 +1186,24 @@ body {
 	}
 
 	&__item {
+		transform: translate(0%, -60%);
+		opacity: 0;
+		transition: all 0.9s ease;
+		&:nth-child(2) {
+			transition-delay: 0.3s;
+		}
+		&:nth-child(3) {
+			transition-delay: 0.6s;
+		}
 		&:not(:last-child) {
 			@media(max-width:$bp760) {
 				padding-bottom: 5px;
 				border-bottom: 0.4px solid #000000;
 			}
+		}
+		&._active {
+			transform: none;
+			opacity: 1;
 		}
 	}
 
@@ -1057,8 +1246,55 @@ body {
 }
 // =========================================================
 
-
-
+.lets-talk {
+	background-color: #020A0C;
+	&__container {
+		@include adaptiv-value("padding-top", 100, 45, 2);
+		@include adaptiv-value("padding-bottom", 100, 45, 2);
+		display: flex;
+		align-items: center;
+	}
+	&__content {
+		flex: 1 1 auto;
+	}
+	&__title {
+		margin-bottom: 14px;
+		@include adaptiv-value("font-size", 94, 56, 2);
+		font-weight: $bold;
+		color: #FFFFFF;
+		opacity: 0;
+		transform: translate(0, -100%);
+		transition: all 0.7s ease 0s;
+		text-transform: uppercase;
+		&._active {
+			transform: none;
+			opacity: 1;
+		}
+		span {
+			font-weight: $regular;
+			font-size: 0.7em;
+			line-height: 1.42;
+			letter-spacing: 0.015em;
+		}
+	}
+	&__block-text {
+		opacity: 0;
+		transform: translate(0, -300%);
+		transition: all 0.7s ease 0.3s;
+		&._active {
+			transform: none;
+			opacity: 1;
+		}
+		> div {
+			@include adaptiv-value("font-size", 21, 16, 2);
+			line-height: 1.2;
+		}
+	}
+	&__notice {
+		padding-top: 8px;
+	}
+}
+// ====================================================================
 
 .footer {
 	background-color: $bgccolor;
