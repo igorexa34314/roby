@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+const partners = await getCollection('partners');
+---
+
+<section class="partners">
+	<div class="partners__container">
+		<div class="partners__content">
+			<h2 class="partners__title">We partner with <span>forward-thinking</span> startups.</h2>
+			<div class="partners__items">
+				{
+					partners.map(partner => (
+						<div class="partners__item">
+							<a href={partner.data.link} target="_blank" class="partners__link">
+								<Image src={partner.data.image} alt={partner.data.name} />
+							</a>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</section>
+
+<style lang="scss">
+	.partners {
+		background-color: $bgccolor;
+		&__container {
+			@include adaptiv-value('padding-bottom', 120, 70, 2);
+		}
+		&__content {
+			@include adaptiv-value('padding-right', 56, 15, 2);
+			@include adaptiv-value('padding-left', 121, 40, 2);
+		}
+		&__title {
+			@include adaptiv-value('margin-bottom', 48, 30, 2);
+			@include adaptiv-value('font-size', 27, 18, 2);
+			line-height: 1.2;
+			text-align: center;
+			text-transform: uppercase;
+			span {
+				@include adaptiv-value('font-size', 22, 14, 2);
+				line-height: 1.47;
+				letter-spacing: 0.05em;
+			}
+		}
+		&__items {
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+		&__item {
+			flex: 0 0 200px;
+		}
+		&__link {
+			display: flex;
+			img {
+				max-width: 100%;
+				height: auto;
+			}
+		}
+	}
+</style>

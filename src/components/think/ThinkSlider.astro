@@ -1,0 +1,96 @@
+---
+import QuoteItem from './QuoteItem.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	quotes: CollectionEntry<'quotes'>[];
+}
+const { quotes } = Astro.props;
+---
+
+<div class="think__slider swiper" data-slider>
+	<div class="swiper-wrapper think__items">
+		{
+			quotes.map(quote => (
+				<div class="swiper-slide">
+					<QuoteItem quote={quote} />
+				</div>
+			))
+		}
+	</div>
+	<div class="swiper-pagination"></div>
+</div>
+
+<script>
+	// import Swiper JS
+	import Swiper from 'swiper';
+	import { Pagination, Autoplay } from 'swiper/modules';
+
+	// import Swiper styles
+	import 'swiper/scss';
+	import 'swiper/scss/pagination';
+	import 'swiper/scss/autoplay';
+
+	new Swiper('.swiper[data-slider]', {
+		// configure Swiper to use modules
+		loop: true,
+		modules: [Pagination, Autoplay],
+		slidesPerView: 1,
+		spaceBetween: 30,
+		speed: 1000,
+		centeredSlides: true,
+		autoplay: {
+			delay: 2000,
+			disableOnInteraction: false,
+			pauseOnMouseEnter: true,
+		},
+		breakpoints: {
+			1280: {
+				slidesPerView: 3,
+			},
+			760: {
+				slidesPerView: 2,
+			},
+		},
+		pagination: {
+			el: '.swiper-pagination',
+			clickable: true,
+		},
+	});
+</script>
+
+<style lang="scss">
+	.think {
+		&__slider {
+		}
+
+		&__items {
+		}
+	}
+</style>
+
+<style lang="scss" is:global>
+	.swiper {
+		&-slide {
+			height: auto !important;
+			opacity: 0.58 !important;
+			transition: opacity 0.4s ease 0s !important;
+			&-active {
+				opacity: 1 !important;
+			}
+		}
+		&-pagination {
+			margin-top: 2em !important;
+			position: static !important;
+			&-bullet {
+				width: 10px !important;
+				height: 10px !important;
+				border-radius: 0 !important;
+				background-color: rgba(34, 34, 34, 0.4) !important;
+				&-active {
+					background-color: #222222 !important;
+				}
+			}
+		}
+	}
+</style>

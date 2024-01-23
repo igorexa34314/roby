@@ -1,0 +1,133 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('posts');
+---
+
+<section class="blog">
+	<div class="blog__container">
+		<div class="blog__content">
+			<h2 class="blog__title">Our <span>Blog</span></h2>
+			<div class="blog__notice">
+				<div class="notice"><span>View All Post</span></div>
+			</div>
+		</div>
+		<div class="blog__items animation-wrapper">
+			{
+				posts.map(p => (
+					<div class="blog__item animation-item">
+						<div class="blog__image">
+							<Image src={p.data.image} alt={p.data.category} />
+						</div>
+						<div class="blog__category">
+							<a href="#" class="button button_light">
+								{p.data.category}
+							</a>
+						</div>
+						<div class="blog__block-text block-text">
+							<h3 class="block-text__title">{p.data.title}</h3>
+							<div class="block-text__text">
+								{p.data.date.toLocaleDateString('en-US', {
+									timeZone: 'UTC',
+									dateStyle: 'medium',
+								})}
+							</div>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style lang="scss">
+	.blog {
+		background-color: $bgccolor;
+		&__container {
+		}
+		@include adaptiv-value('padding-bottom', 119, 65, 2);
+		&__content {
+			@include adaptiv-value('margin-bottom', 50, 25, 2);
+			display: flex;
+			align-items: center;
+			@media (max-width: $bp450) {
+				padding: 0px 15px;
+			}
+		}
+		&__title {
+			flex: 1 1 auto;
+			font-weight: $bold;
+			@include adaptiv-value('font-size', 60, 32, 2);
+			line-height: 1.2;
+			text-transform: uppercase;
+			span {
+				font-weight: $regular;
+				font-size: 0.95em;
+				line-height: 1.26;
+				letter-spacing: 0.02em;
+			}
+		}
+		&__notice {
+		}
+
+		&__items {
+			display: flex;
+			@include adaptiv-value('column-gap', 40, 20, 2);
+			@media (max-width: $bp760) {
+				margin: 0 auto;
+				max-width: 80%;
+				flex-direction: column;
+				align-items: center;
+				row-gap: 50px;
+			}
+		}
+
+		&__item {
+			&:not(:last-child) {
+				@media (max-width: $bp760) {
+					padding-bottom: 5px;
+					border-bottom: 0.4px solid #000000;
+				}
+			}
+		}
+
+		&__image {
+			display: flex;
+			@media (max-width: $bp760) {
+				justify-content: center;
+			}
+			img {
+				max-width: 100%;
+				height: auto;
+			}
+		}
+
+		&__category {
+			display: flex;
+			margin-top: 2.5em;
+			@media (max-width: $bp760) {
+				margin-top: 18px;
+				justify-content: center;
+			}
+		}
+
+		&__block-text {
+			@media (max-width: $bp760) {
+				text-align: center;
+			}
+			h3 {
+				@include adaptiv-value('font-size', 26, 18, 2);
+				margin-top: 0.8em;
+				margin-bottom: 1.15em;
+				@media (max-width: $bp760) {
+					margin-top: 11px;
+					margin-bottom: 7px;
+				}
+			}
+			> div {
+				color: #8f8f8f;
+			}
+		}
+	}
+</style>

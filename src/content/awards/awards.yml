@@ -1,0 +1,10 @@
+type: Awards
+items:
+  - name: Site of the Day
+    count: 3
+  - name: Developer Award
+    count: 1
+  - name: Honorable Mention
+    count: 7
+  - name: Mobile Exelence
+    count: 3

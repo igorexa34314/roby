@@ -1,0 +1,102 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+const facts = await getCollection('facts');
+---
+
+<section class="facts">
+	<div class="facts__container">
+		<h2 class="facts__title">Fun <span>Facts</span></h2>
+		<div class="facts__items">
+			{
+				facts.map(fact => (
+					<div class="facts__item">
+						<div class="facts__icon">
+							{fact.data.icon && <Image src={fact.data.icon} alt={fact.data.name} />}
+						</div>
+						<div class="facts__block-text block-text">
+							<h3 class="block-text__value">{fact.data.count}</h3>
+							<div class="block-text__text">{fact.data.name}</div>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	import gsap from 'gsap';
+	import ScrollTrigger from 'gsap/ScrollTrigger';
+
+	gsap.registerPlugin(ScrollTrigger);
+
+	gsap.from('.facts__item', {
+		scrollTrigger: {
+			trigger: '.facts__items',
+		},
+		autoAlpha: 0,
+		y: '-100%',
+		delay: 0.2,
+		duration: 0.6,
+	});
+</script>
+
+<style lang="scss">
+	.facts {
+		background-color: $bgccolor;
+		&__container {
+			@include adaptiv-value('padding-bottom', 145, 75, 2);
+		}
+
+		&__title {
+			padding: 3px 0px 12px 0px;
+			font-weight: $bold;
+			@include adaptiv-value('font-size', 48, 28, 2);
+			line-height: 1.1;
+			text-align: center;
+			letter-spacing: 0.02em;
+			text-transform: uppercase;
+			span {
+				font-size: 0.77em;
+				line-height: 1.43;
+				font-weight: $regular;
+			}
+		}
+
+		&__items {
+			@include adaptiv-value('margin-top', 40, 25, 2);
+			display: flex;
+			flex-wrap: wrap;
+			@include adaptiv-value('row-gap', 45, 25, 2);
+		}
+
+		&__item {
+			flex: 0 0 25%;
+			@media (max-width: $bp980) {
+				flex: 0 0 50%;
+			}
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 0.5em;
+		}
+		&__icon img {
+			@media (max-width: $bp980) {
+				width: 36px;
+				height: 36px;
+			}
+		}
+		&__block-text {
+			position: relative;
+			h3 {
+				margin-bottom: 2px;
+				font-weight: $bold;
+				@include adaptiv-value('font-size', 43, 26, 2);
+				line-height: 1.16;
+				text-transform: uppercase;
+			}
+		}
+	}
+</style>

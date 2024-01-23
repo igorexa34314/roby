@@ -1,0 +1,133 @@
+---
+import { getCollection } from 'astro:content';
+
+const awards = await getCollection('awards');
+
+const overallAwards = awards.map(award => ({
+	...award.data,
+	overall: award.data.items.reduce((sum, item) => sum + item.count, 0),
+}));
+---
+
+<section class="agency">
+	<div class="agency__container">
+		<div class="agency__content">
+			<div class="agency__block-text block-text">
+				<h2 class="block-text__title">THE PERFECT <span>AGENCY FOR YOUR BRAND</span></h2>
+				<div class="block-text__text">
+					<p>
+						We love what we do and create partnerships with our clients to ensure their digital transformation is
+						positioned for long-term success.
+					</p>
+					<p>
+						We believe that the human dimensions essential to start any successful project and that this is where
+						splendid emotional relationships between the company and people are born.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="awards">
+			<div class="awards__wrapper">
+				{
+					overallAwards.map(awardType => (
+						<div class="awards__block">
+							<h3 class="awards__title">
+								<td class="awards__name">{awardType.type}</td>
+								<td class="awards__count">{awardType.overall}</td>
+							</h3>
+							<div class="awards__items">
+								{awardType.items.map(award => (
+									<div class="awards__item">
+										<span class="awards__name">{award.name}</span>
+										<span class="awards__count">{award.count}</span>
+									</div>
+								))}
+							</div>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</section>
+
+<style lang="scss">
+	.agency {
+		background-color: $bgccolor;
+		&__container {
+			display: flex;
+			@include adaptiv-value('padding-bottom', 140, 60, 2);
+			@media (max-width: $bp980) {
+				flex-direction: column;
+			}
+		}
+		&__content {
+			flex: 1 1 auto;
+		}
+		&__block-text {
+			h2 {
+				@include adaptiv-value('margin-bottom', 32, 20, 2);
+			}
+		}
+	}
+
+	.awards {
+		@media (max-width: $bp980) {
+			@include adaptiv-value('margin-top', 90, 50, 2);
+		}
+		flex: 0 0 40%;
+		&__wrapper {
+			@include adaptiv-value('padding-left', 85, 30, 2);
+			@media (max-width: $bp980) {
+				padding-left: 0;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+			}
+			@media (max-width: $bp450) {
+				flex-direction: column;
+			}
+		}
+		&__block {
+			&:not(:last-child) {
+				@include adaptiv-value('margin-bottom', 70, 40, 2);
+			}
+			@media (max-width: $bp980) {
+				&:not(:last-child) {
+					margin-bottom: 0;
+				}
+				flex: 0 0 45%;
+			}
+			@media (max-width: $bp450) {
+				&:not(:last-child) {
+					@include adaptiv-value('margin-bottom', 50, 30, 2);
+				}
+			}
+		}
+		&__title {
+			@include adaptiv-value('margin-bottom', 15, 5, 2);
+			display: flex;
+			justify-content: space-between;
+			font-weight: $bold;
+			@include adaptiv-value('font-size', 21, 16, 2);
+			line-height: 1.5;
+			text-transform: uppercase;
+		}
+		&__name {
+		}
+		&__count {
+		}
+		&__items {
+			@include adaptiv-value('padding-top', 20, 10, 2);
+			border-top: 1px solid $txtcolor;
+		}
+		&__item {
+			display: flex;
+			justify-content: space-between;
+			padding-bottom: 9px;
+			color: #747474;
+			@include adaptiv-value('font-size', 19, 14, 2);
+			line-height: 1.5;
+		}
+	}
+</style>

@@ -1,0 +1,50 @@
+<section class="lets-talk">
+	<div class="lets-talk__container">
+		<div class="lets-talk__content animation-wrapper">
+			<h2 class="lets-talk__title animation-item">Let's <span>Talk</span></h2>
+			<div class="lets-talk__block-text block-text animation-item">
+				<div class="block-text__text">Feel free to contact us</div>
+			</div>
+		</div>
+		<div class="lets-talk__notice">
+			<div class="notice notice_light"><span>work with us</span></div>
+		</div>
+	</div>
+</section>
+
+<style lang="scss">
+	.lets-talk {
+		background-color: #020a0c;
+		&__container {
+			@include adaptiv-value('padding-top', 100, 45, 2);
+			@include adaptiv-value('padding-bottom', 100, 45, 2);
+			display: flex;
+			align-items: center;
+		}
+		&__content {
+			flex: 1 1 auto;
+		}
+		&__title {
+			margin-bottom: 14px;
+			@include adaptiv-value('font-size', 94, 56, 2);
+			font-weight: $bold;
+			color: #ffffff;
+			text-transform: uppercase;
+			span {
+				font-weight: $regular;
+				font-size: 0.7em;
+				line-height: 1.42;
+				letter-spacing: 0.015em;
+			}
+		}
+		&__block-text {
+			> div {
+				@include adaptiv-value('font-size', 21, 16, 2);
+				line-height: 1.2;
+			}
+		}
+		&__notice {
+			padding-top: 8px;
+		}
+	}
+</style>
