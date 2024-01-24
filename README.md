@@ -2,7 +2,7 @@
 
 *Using SSG with [AstroJS](https://astro.build/)*
 
-[Demo](igorexa34314.github.io/roby)
+[Demo](https://igorexa34314.github.io/roby)
 \
 \
 [Layout Source](https://www.figma.com/file/J93hbRxqoK1Zsdr9G6IRwb/Roby?type=design&node-id=0-1&mode=design&t=D2cGlF1OnkiecR6D-0) (Figma)
